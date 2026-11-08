@@ -2,8 +2,6 @@ org 0x7C00          ; BIOS always puts OS at 0x7C00. Tells assembler where code 
 bits 16             ; Tells assembler to emit 16-bit code
 
 %define ENDL 0x0D, 0x0A
-%define KERNEL_LOAD_SEGMENT 0x2000
-%define KERNEL_LOAD_OFFSET  0x0000
 
 ; FAT12 header
 jmp short start
@@ -307,9 +305,12 @@ disk_reset:
 
 msg_loading:            db 'HONK', ENDL, 0 
 msg_read_failed:        db 'disk failed!', ENDL, 0
-msg_kernel_not_found:   db 'no kernel!', ENDL, 0
-file_kernel_bin:        db 'KERNEL  BIN'
+msg_kernel_not_found:   db 'no STAGE2!', ENDL, 0
+file_kernel_bin:        db 'STAGE2  BIN'
 kernel_cluster:         dw 0
+
+KERNEL_LOAD_SEGMENT equ 0x2000
+KERNEL_LOAD_OFFSET  equ 0x0000
 
 times 510-($-$$) db 0
 dw 0AA55h
