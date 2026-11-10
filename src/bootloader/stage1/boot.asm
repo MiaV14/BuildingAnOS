@@ -306,8 +306,8 @@ disk_reset:
 msg_loading:            db 'HONK', ENDL, 0 
 msg_read_failed:        db 'disk failed!', ENDL, 0
 msg_kernel_not_found:   db 'no STAGE2!', ENDL, 0
-file_kernel_bin:        db 'STAGE2  BIN'
-kernel_cluster:         dw 0
+file_stage2_bin:        db 'STAGE2  BIN'
+stage2_cluster:         dw 0
 
 KERNEL_LOAD_SEGMENT equ 0x2000
 KERNEL_LOAD_OFFSET  equ 0x0000
