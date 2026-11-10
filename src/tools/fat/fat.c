@@ -68,6 +68,7 @@ bool readBootSector(FILE* disk){
 
 // READ SECTORS
 // Parameters: file handle, sector number/lba, number of sectors to read, pointer to store the data
+// makes translation into assembly easier
 bool readSectors(FILE* disk, uint32_t lba, uint32_t count, void* bufferOut){
     bool ok = true;
     // before read: seek to the right position in the file
@@ -85,28 +86,33 @@ bool readSectors(FILE* disk, uint32_t lba, uint32_t count, void* bufferOut){
 // reserved region's size can be found in the reserved sectors field from the boot sector
 bool readFat(FILE* disk){
     global_Fat = (uint8_t*) malloc(global_BootSector.SectorsPerFat * global_BootSector.BytesPerSector);
+    // after allocating enough memory we call the readSectors function to read the file allocation table
     return readSectors(disk, global_BootSector.ReservedSectors, global_BootSector.SectorsPerFat, global_Fat);
 }
 
 // READ ROOT DIRECTORY
-//
+// reads root directory into memory
 bool readRootDirectory(FILE* disk){
-    // calculate beginning position
+    // calculate beginning position: sum of the sizes of the previous two positions plus file allocation tables
     uint32_t lba = global_BootSector.ReservedSectors + global_BootSector.SectorsPerFat * global_BootSector.FatCount;
-    // number of sectors to read
+    // number of sectors to read: total size of root directory in bytes divided by size of a sector
     uint32_t size = sizeof(DirectoryEntry) * global_BootSector.DirEntryCount;
     uint32_t sectors = (size / global_BootSector.BytesPerSector);
     
+    // rounds up number of sectors to read
     if (size % global_BootSector.BytesPerSector > 0){
         sectors++;
     }
 
+    // allocate memory for the root directory: enough memory to not overflow
     global_RootDirectoryEnd = lba + sectors;
     global_RootDirectory = (DirectoryEntry*) malloc(sectors * global_BootSector.BytesPerSector);
     return readSectors(disk, lba, sectors, global_RootDirectory);
 }
 
+// returns pointer to corresponding directory entry
 DirectoryEntry* findFile(const char* name){
+    // iterate over all entries and compare name parameter
     for (uint32_t i = 0; i < global_BootSector.DirEntryCount; i++){
         if (memcmp(name, global_RootDirectory[i].Name, 11) == 0){
             return &global_RootDirectory[i];
@@ -120,22 +126,32 @@ DirectoryEntry* findFile(const char* name){
 // pass file as directory entry from findFile function
 bool readFile(DirectoryEntry* fileEntry, FILE* disk, uint8_t* outputBuffer){
     bool ok = true;
+    // keeps track of current cluster
+    // initial value will be first cluster from the directory entry
     uint16_t currentCluster = fileEntry->FirstClusterLow;
 
+    // read each cluster and get next cluster from the chain
     do {
+        // converting cluster to sector: root directory end plus current cluster -2
+        // first two clusters are reserved 
         uint32_t lba = global_RootDirectoryEnd + (currentCluster - 2) * global_BootSector.SectorsPerCluster;
         ok = ok && readSectors(disk, lba, global_BootSector.SectorsPerCluster, outputBuffer);
         outputBuffer += global_BootSector.SectorsPerCluster * global_BootSector.BytesPerSector;
 
+        // determine next cluster
+        // each entry is 12 bits wide --> index = current cluster multiplied by 3 then divided by 2
         uint32_t fatIndex = currentCluster * 3 / 2;
         if (currentCluster % 2 == 0){
+            // take bottom 12 bits and apply bitmask to remove top bits
             currentCluster = (*(uint16_t*)(global_Fat + fatIndex)) && 0x0FFF;
         }
         else{
+            // take upper 12 bits - shift value to the right by 4 bits
+            // this will give next cluster in the chain
             currentCluster = (*(uint16_t*)(global_Fat + fatIndex)) >> 4;
         }
 
-    } while (ok && currentCluster < 0x0FF8);
+    } while (ok && currentCluster < 0x0FF8);    // loop until 0FF8 --> end of the chain
 
     return ok;
 }
@@ -158,7 +174,7 @@ int main( int argc, char** argv){
         return -1;
     }
 
-    // call function to handle any potential errors
+    // call functions to handle any potential errors
     if (!readBootSector(disk)){
         fprintf(stderr, "Could not read boot sector!\n");
         return -2;
@@ -185,6 +201,7 @@ int main( int argc, char** argv){
         return -5;
     }
 
+    // allocate at least an extra sector so nothing gets overwritten or get a segmentation fault
     uint8_t* buffer = (uint8_t*) malloc(fileEntry->Size + global_BootSector.BytesPerSector);
     if (!readFile(fileEntry, disk, buffer)) {
         fprintf(stderr, "Could not read file %s!\n", argv[2]);
@@ -194,6 +211,7 @@ int main( int argc, char** argv){
         return -5;
     }
 
+    // prints contents of the file
     for (size_t i = 0; i < fileEntry->Size; i++){
         if (isprint(buffer[i])) fputc(buffer[i], stdout);
         else printf("<%02x>", buffer[i]);

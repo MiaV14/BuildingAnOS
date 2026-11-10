@@ -54,9 +54,10 @@ start:
     call puts
 
     ; read drive parameters (sectors per track and head count)
+    ; instead of relying on data on formatted disk
     push es
-    mov ah, 08h
-    int 13h
+    mov ah, 08h                         ; number of heads and sectors
+    int 13h                             ; number of heads and sectors
     jc floppy_error
     pop es
 
@@ -209,12 +210,12 @@ puts:
 
 ; ERROR HANDLERS
 floppy_error:
-    mov si, msg_read_failed
+    mov si, msg_read_failed             ; show read failed message
     call puts
     jmp wait_key_and_reboot
 
 kernel_not_found_error:
-    mov si, msg_kernel_not_found
+    mov si, msg_kernel_not_found        ; show kernel not found message
     call puts
     jmp wait_key_and_reboot
 
@@ -303,12 +304,13 @@ disk_reset:
     popa
     ret
 
-msg_loading:            db 'HONK', ENDL, 0 
-msg_read_failed:        db 'disk failed!', ENDL, 0
-msg_kernel_not_found:   db 'no STAGE2!', ENDL, 0
+msg_loading:            db 'HONK', ENDL, 0          ; change to update loading message
+msg_read_failed:        db 'disk failed!', ENDL, 0  ; change to update read failed message
+msg_kernel_not_found:   db 'no STAGE2!', ENDL, 0    ; change to update kernel not found message
 file_stage2_bin:        db 'STAGE2  BIN'
 stage2_cluster:         dw 0
 
+; set Kernel values
 KERNEL_LOAD_SEGMENT equ 0x2000
 KERNEL_LOAD_OFFSET  equ 0x0000
 

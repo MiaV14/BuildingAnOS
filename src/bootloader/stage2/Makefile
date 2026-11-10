@@ -5,6 +5,7 @@ CC16?=/Downloads/watcom/binl/wcc
 CFLAGS16?=-4 -d3 -s -wx -ms -zl -zq # -oneatxzh 
 LD16?=/Downloads/watcom/binl/wlink
 
+# get all c and assembly files in current directory
 SOURCES_C=$(wildcard *.c)
 SOURCES_ASM=$(wildcard *.asm)
 OBJECTS_C=$(patsubst %.c, $(BUILD_DIR)/stage2/c/%.obj, $(SOURCES_C))
