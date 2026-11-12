@@ -1,8 +1,8 @@
-Open Watcom Linker Version 2.0 beta Nov  8 2026 06:40:30 (32-bit)
+Open Watcom Linker Version 2.0 beta Nov 11 2026 07:05:17 (32-bit)
 Copyright (c) 2002-2026 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       26/11/09 16:20:50
-Executable Image: /home/kali/Documents/BuildingAnOS/build/stage2.bin
+Created on:       26/11/12 09:11:50
+Executable Image: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2.bin
 creating a RAW Binary Image executable
 
 
@@ -13,7 +13,7 @@ creating a RAW Binary Image executable
 Group                           Address              Size
 =====                           =======              ====
 
-DGROUP                          0000009e             00000016
+DGROUP                          00000674             0000032a
 
 
 
@@ -25,10 +25,10 @@ Segment                Class          Group          Address         Size
 =======                =====          =====          =======         ====
 
 _ENTRY                 CODE           AUTO           00000000        00000013
-_TEXT                  CODE           AUTO           00000013        0000008b
-CONST                  DATA           DGROUP         0000009e        00000016
-CONST2                 DATA           DGROUP         000000b4        00000000
-_DATA                  DATA           DGROUP         000000b4        00000000
+_TEXT                  CODE           AUTO           00000013        00000660
+CONST                  DATA           DGROUP         00000674        00000318
+CONST2                 DATA           DGROUP         0000098c        00000011
+_DATA                  DATA           DGROUP         0000099e        00000000
 
 
                         +----------------+
@@ -41,15 +41,19 @@ _DATA                  DATA           DGROUP         000000b4        00000000
 Address        Symbol
 =======        ======
 
-Module: /home/kali/Documents/BuildingAnOS/build/stage2/asm/main.obj(/home/kali/Documents/BuildingAnOS/build/stage2/asm/main.obj)
+Module: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/main.obj(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/main.obj)
 00000000       entry
-Module: /home/kali/Documents/BuildingAnOS/build/stage2/asm/x86.obj(/home/kali/Documents/BuildingAnOS/build/stage2/asm/x86.obj)
-00000013       _x86_Video_WriteCharTeletype
-Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/main.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/main.obj)
-00000026       _cstart_
-Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/stdio.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/stdio.obj)
-00000040+      putc_
-00000067       puts_
+Module: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/x86.obj(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/x86.obj)
+00000013       _x86_div64_32
+00000041       _x86_Video_WriteCharTeletype
+Module: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/main.obj(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/main.obj)
+00000054       _cstart_
+Module: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/stdio.obj(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/stdio.obj)
+00000143+      putc_
+0000016a       puts_
+000001a1       _printf
+000003ff+      printf_number_
+0000098c+      _g_HexChars
 
 
                         +---------------------+
@@ -62,20 +66,20 @@ c = initialized communal data
 Module          Segment               Class           Address         Size
 ======          =======               =====           =======         ====
 
-/home/kali/Documents/BuildingAnOS/build/stage2/asm/main.obj
+/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/main.obj
                 _ENTRY                CODE           00000000         00000013
-/home/kali/Documents/BuildingAnOS/build/stage2/asm/x86.obj
-                _TEXT                 CODE           00000013         00000013
-/home/kali/Documents/BuildingAnOS/build/stage2/c/main.obj
-                _TEXT                 CODE           00000026         0000001a
-                CONST                 DATA           0000009e         00000016
-                CONST2                DATA           000000b4         00000000
-                _DATA                 DATA           000000b4         00000000
-/home/kali/Documents/BuildingAnOS/build/stage2/c/stdio.obj
-                _TEXT                 CODE           00000040         0000005e
-                CONST                 DATA           000000b4         00000000
-                CONST2                DATA           000000b4         00000000
-                _DATA                 DATA           000000b4         00000000
+/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/x86.obj
+                _TEXT                 CODE           00000013         00000041
+/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/main.obj
+                _TEXT                 CODE           00000054         000000ef
+                CONST                 DATA           00000674         00000318
+                CONST2                DATA           0000098c         00000000
+                _DATA                 DATA           0000099e         00000000
+/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/stdio.obj
+                _TEXT                 CODE           00000143         00000530
+                CONST                 DATA           0000098c         00000000
+                CONST2                DATA           0000098c         00000011
+                _DATA                 DATA           0000099e         00000000
 Warning! W1014: stack segment not found
 
 
@@ -84,6 +88,6 @@ Warning! W1014: stack segment not found
                         +-----------------------+
 
 Stack size:  0200 (512.)
-Memory size:  00b4 (180.)
+Memory size:  099e (2462.)
 Entry point address: 00000000
-Link time: 00:00.20
+Link time: 00:00.00
