@@ -4,7 +4,7 @@ section _TEXT class=CODE
 
 ;
 ; void _cdecl x86_div64_32(uint64_t dividend, uint32_t divisor, uint64_t* quotientOut, uint32_t* remainderOut)
-;
+; x86 long division
 global _x86_div64_32
 _x86_div64_32:
     ; make new call frame

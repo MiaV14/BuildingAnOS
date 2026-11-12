@@ -15,12 +15,14 @@ void puts(const char* str)
     }
 }
 
+// define states
 #define PRINTF_STATE_NORMAL 0
 #define PRINTF_STATE_LENGTH 1
 #define PRINTF_STATE_LENGTH_SHORT 2
 #define PRINTF_STATE_LENGTH_LONG 3
 #define PRINTF_STATE_SPEC 4
 
+// define lengths
 #define PRINTF_LENGTH_DEFAULT 0
 #define PRINTF_LENGTH_SHORT_SHORT 1
 #define PRINTF_LENGTH_SHORT 2
@@ -29,13 +31,14 @@ void puts(const char* str)
 
 int* printf_number(int* argp, int length, bool sign, int radix);
 
+// Print formatted output
 void _cdecl printf(const char* fmt, ...)
 {
     int* argp = (int*)&fmt;
-    int state = PRINTF_STATE_NORMAL;
-    int length = PRINTF_LENGTH_DEFAULT;
-    int radix = 10;
-    bool sign = false;
+    int state = PRINTF_STATE_NORMAL; // Default state is normal
+    int length = PRINTF_LENGTH_DEFAULT; // Default length
+    int radix = 10; // Default radix (base) is 10
+    bool sign = false; // Define sign to determine signed values
 
     argp++;
 
@@ -46,6 +49,7 @@ void _cdecl printf(const char* fmt, ...)
             case PRINTF_STATE_NORMAL:
                 switch(*fmt)
                 {
+                    // %
                     case '%':
                         state = PRINTF_STATE_LENGTH;
                         break;
@@ -57,10 +61,12 @@ void _cdecl printf(const char* fmt, ...)
             case PRINTF_STATE_LENGTH:
                 switch(*fmt)
                 {
+                    // short int
                     case 'h':
                         length = PRINTF_LENGTH_SHORT;
                         state = PRINTF_STATE_LENGTH_SHORT;
                         break;
+                    // long int
                     case 'l':
                         length = PRINTF_LENGTH_LONG;
                         state = PRINTF_STATE_LENGTH_LONG;
@@ -70,6 +76,7 @@ void _cdecl printf(const char* fmt, ...)
                 }
                 break;
             case PRINTF_STATE_LENGTH_SHORT:
+                // unsigned or signed char
                 if(*fmt == 'h')
                 {
                     length = PRINTF_LENGTH_SHORT_SHORT;
@@ -81,6 +88,7 @@ void _cdecl printf(const char* fmt, ...)
                 }
                 break;
             case PRINTF_STATE_LENGTH_LONG:
+                // long long int
                 if(*fmt == 'l')
                 {
                     length = PRINTF_LENGTH_LONG_LONG;
@@ -95,37 +103,44 @@ void _cdecl printf(const char* fmt, ...)
             PRINTF_STATE_SPEC_:
                 switch(*fmt)
                 {
+                    // char
                     case 'c':
                         putc((char)*argp);
                         argp++;
                         break;
+                    // string
                     case 's':
                         puts(*(char**)argp);
                         argp++;
                         break;
+                    // %% = %
                     case '%':
                         putc('%');
                         break;
+                    // signed decimal integer
                     case 'd': 
                     case 'i':
-                        radix = 10;
+                        radix = 10; // base 10 for decimal
                         sign = true;
                         argp = printf_number(argp, length, sign, radix);
                         break;
+                    // unsigned decimal integer
                     case 'u':
-                        radix = 10;
+                        radix = 10; // base 10 for decimal
                         sign = false;
                         argp = printf_number(argp, length, sign, radix);
                         break;
+                    // unsigned hexadecimal
                     case 'X':
                     case 'x':
                     case 'p':
-                        radix = 16;
+                        radix = 16; // base 16 for hexadecimal
                         sign = false;
                         argp = printf_number(argp, length, sign, radix);
                         break;
+                    // unsigned octal
                     case 'o':
-                        radix = 8;
+                        radix = 8; // base 8 for octal
                         sign = false;
                         argp = printf_number(argp, length, sign, radix);
                         break;
@@ -143,7 +158,7 @@ void _cdecl printf(const char* fmt, ...)
     }
 }
 
-const char g_HexChars[] = "0123456789abcdef";
+const char g_HexChars[] = "0123456789abcdef"; // define hexadecimal characters
 
 int* printf_number(int* argp, int length, bool sign, int radix)
 {
@@ -152,7 +167,7 @@ int* printf_number(int* argp, int length, bool sign, int radix)
     int number_sign = 1;
     int pos = 0;
 
-    //process length
+    // process length
     switch(length)
     {
         case PRINTF_LENGTH_SHORT_SHORT:
