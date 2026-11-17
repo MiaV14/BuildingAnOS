@@ -1,8 +1,8 @@
-Open Watcom Linker Version 2.0 beta Nov 11 2026 07:05:17 (32-bit)
+Open Watcom Linker Version 2.0 beta Nov  8 2026 06:40:30 (32-bit)
 Copyright (c) 2002-2026 The Open Watcom Contributors. All Rights Reserved.
 Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
-Created on:       26/11/12 09:18:28
-Executable Image: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2.bin
+Created on:       26/11/17 01:56:00
+Executable Image: /home/kali/Documents/BuildingAnOS/build/stage2.bin
 creating a RAW Binary Image executable
 
 
@@ -13,7 +13,7 @@ creating a RAW Binary Image executable
 Group                           Address              Size
 =====                           =======              ====
 
-DGROUP                          00000610             000002be
+DGROUP                          00001a68             00000168
 
 
 
@@ -25,10 +25,11 @@ Segment                Class          Group          Address         Size
 =======                =====          =====          =======         ====
 
 _ENTRY                 CODE           AUTO           00000000        00000013
-_TEXT                  CODE           AUTO           00000013        000005fd
-CONST                  DATA           DGROUP         00000610        000002ac
-CONST2                 DATA           DGROUP         000008bc        00000011
-_DATA                  DATA           DGROUP         000008ce        00000000
+_TEXT                  CODE           AUTO           00000013        00001a54
+CONST                  DATA           DGROUP         00001a68        00000145
+CONST2                 DATA           DGROUP         00001bae        00000011
+_DATA                  DATA           DGROUP         00001bc0        00000008
+_BSS                   BSS            DGROUP         00001bc8        00000008
 
 
                         +----------------+
@@ -41,19 +42,56 @@ _DATA                  DATA           DGROUP         000008ce        00000000
 Address        Symbol
 =======        ======
 
-Module: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/main.obj(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/main.obj)
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/asm/main.obj(/home/kali/Documents/BuildingAnOS/build/stage2/asm/main.obj)
 00000000       entry
-Module: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/x86.obj(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/x86.obj)
-00000013       _x86_div64_32
-00000041       _x86_Video_WriteCharTeletype
-Module: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/main.obj(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/main.obj)
-00000054       _cstart_
-Module: /home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/stdio.obj(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/stdio.obj)
-000000e0+      putc_
-00000107       puts_
-0000013e+      _printf
-0000039c+      printf_number_
-000008bc+      _g_HexChars
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/asm/x86.obj(/home/kali/Documents/BuildingAnOS/build/stage2/asm/x86.obj)
+00000013       __U4D
+0000003a       __U4M
+00000054       _x86_div64_32
+00000082       _x86_Video_WriteCharTeletype
+00000095       _x86_Disk_Reset
+000000aa       _x86_Disk_Read
+000000e1       _x86_Disk_GetDriveParams
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/ctype.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/ctype.obj)
+00000125+      islower_
+00000163       toupper_
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/disk.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/disk.obj)
+000001ab       DISK_Initialize_
+00000221+      DISK_LBA2CHS_
+000002d4       DISK_ReadSectors_
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/fat.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/fat.obj)
+00000371+      FAT_ReadBootSector_
+000003a5+      FAT_ReadFat_
+000003e9       FAT_Initialize_
+0000062f+      FAT_ClusterToLba_
+00000685+      FAT_OpenEntry_
+0000084f+      FAT_NextCluster_
+000008d8       FAT_Read_
+00000c3c       FAT_ReadEntry_
+00000c95       FAT_Close_
+00000d0c+      FAT_FindFile_
+00000e48       FAT_Open_
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/main.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/main.obj)
+00000fcb       _cstart_
+00001bc4+      _g_data
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/memory.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/memory.obj)
+0000116a       memcpy_
+000011de       memset_
+0000123d       memcmp_
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/stdio.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/stdio.obj)
+000012b6       putc_
+000012dd+      puts_
+00001314+      puts_f_
+00001351       _printf
+000015d4+      printf_number_
+00001848+      print_buffer_
+00001bae+      _g_HexChars
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/string.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/string.obj)
+000018c4       strchr_
+0000191f+      strcpy_
+00001993       strlen_
+Module: /home/kali/Documents/BuildingAnOS/build/stage2/c/utility.obj(/home/kali/Documents/BuildingAnOS/build/stage2/c/utility.obj)
+000019ce+      align_
 
 
                         +---------------------+
@@ -66,20 +104,51 @@ c = initialized communal data
 Module          Segment               Class           Address         Size
 ======          =======               =====           =======         ====
 
-/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/main.obj
+/home/kali/Documents/BuildingAnOS/build/stage2/asm/main.obj
                 _ENTRY                CODE           00000000         00000013
-/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/asm/x86.obj
-                _TEXT                 CODE           00000013         00000041
-/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/main.obj
-                _TEXT                 CODE           00000054         0000008c
-                CONST                 DATA           00000610         000002ac
-                CONST2                DATA           000008bc         00000000
-                _DATA                 DATA           000008ce         00000000
-/home/violet/Documents/GitHubProjects/BuildingAnOS/build/stage2/c/stdio.obj
-                _TEXT                 CODE           000000e0         00000530
-                CONST                 DATA           000008bc         00000000
-                CONST2                DATA           000008bc         00000011
-                _DATA                 DATA           000008ce         00000000
+/home/kali/Documents/BuildingAnOS/build/stage2/asm/x86.obj
+                _TEXT                 CODE           00000013         00000112
+/home/kali/Documents/BuildingAnOS/build/stage2/c/ctype.obj
+                _TEXT                 CODE           00000125         00000086
+                CONST                 DATA           00001a68         00000000
+                CONST2                DATA           00001bae         00000000
+                _DATA                 DATA           00001bc0         00000000
+/home/kali/Documents/BuildingAnOS/build/stage2/c/disk.obj
+                _TEXT                 CODE           000001ab         000001c6
+                CONST                 DATA           00001a68         00000000
+                CONST2                DATA           00001bae         00000000
+                _DATA                 DATA           00001bc0         00000000
+/home/kali/Documents/BuildingAnOS/build/stage2/c/fat.obj
+                _TEXT                 CODE           00000371         00000c5a
+                CONST                 DATA           00001a68         00000107
+                CONST2                DATA           00001bae         00000000
+                _DATA                 DATA           00001bc0         00000004
+                _BSS                  BSS            00001bc8         00000008
+/home/kali/Documents/BuildingAnOS/build/stage2/c/main.obj
+                _TEXT                 CODE           00000fcb         0000019f
+                CONST                 DATA           00001b70         0000003a
+                CONST2                DATA           00001bae         00000000
+                _DATA                 DATA           00001bc4         00000004
+/home/kali/Documents/BuildingAnOS/build/stage2/c/memory.obj
+                _TEXT                 CODE           0000116a         0000014c
+                CONST                 DATA           00001baa         00000000
+                CONST2                DATA           00001bae         00000000
+                _DATA                 DATA           00001bc8         00000000
+/home/kali/Documents/BuildingAnOS/build/stage2/c/stdio.obj
+                _TEXT                 CODE           000012b6         0000060e
+                CONST                 DATA           00001baa         00000003
+                CONST2                DATA           00001bae         00000011
+                _DATA                 DATA           00001bc8         00000000
+/home/kali/Documents/BuildingAnOS/build/stage2/c/string.obj
+                _TEXT                 CODE           000018c4         0000010a
+                CONST                 DATA           00001bae         00000000
+                CONST2                DATA           00001bc0         00000000
+                _DATA                 DATA           00001bc8         00000000
+/home/kali/Documents/BuildingAnOS/build/stage2/c/utility.obj
+                _TEXT                 CODE           000019ce         00000099
+                CONST                 DATA           00001bae         00000000
+                CONST2                DATA           00001bc0         00000000
+                _DATA                 DATA           00001bc8         00000000
 Warning! W1014: stack segment not found
 
 
@@ -88,6 +157,6 @@ Warning! W1014: stack segment not found
                         +-----------------------+
 
 Stack size:  0200 (512.)
-Memory size:  08ce (2254.)
+Memory size:  1bd0 (7120.)
 Entry point address: 00000000
-Link time: 00:00.00
+Link time: 00:00.20

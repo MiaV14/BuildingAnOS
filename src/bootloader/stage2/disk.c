@@ -30,13 +30,14 @@ void DISK_LBA2CHS(DISK* disk, uint32_t lba, uint16_t* cylinderOut, uint16_t* sec
     *headOut = (lba / disk->sectors) % disk->heads;
 }
 
-bool DISK_ReadSectors(DISK* disk, uint32_t lba, uint8_t sectors, void* dataOut)
+bool DISK_ReadSectors(DISK* disk, uint32_t lba, uint8_t sectors, void far* dataOut)
 {
     uint16_t cylinder, sector, head;
+    int i; // Declare 'i' here for C89 / Open Watcom compatibility
 
     DISK_LBA2CHS(disk, lba, &cylinder, &sector, &head);
 
-    for (int i = 0; i < 3; i++)
+    for (i = 0; i < 3; i++)
     {
         if (x86_Disk_Read(disk->id, cylinder, sector, head, sectors, dataOut))
             return true;
