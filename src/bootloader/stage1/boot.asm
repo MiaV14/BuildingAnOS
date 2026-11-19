@@ -127,9 +127,9 @@ start:
     call disk_read
 
     ; read kernel and process FAT chain
-    mov bx, KERNEL_LOAD_SEGMENT
+    mov bx, STAGE2_LOAD_SEGMENT
     mov es, bx
-    mov bx, KERNEL_LOAD_OFFSET
+    mov bx, STAGE2_LOAD_OFFSET
 
 .load_kernel_loop:
     ; Read next cluster
@@ -174,11 +174,11 @@ start:
     ; jump to our kernel
     mov dl, [ebr_drive_number]          ; boot device in dl
 
-    mov ax, KERNEL_LOAD_SEGMENT         ; set segment registers
+    mov ax, STAGE2_LOAD_SEGMENT         ; set segment registers
     mov ds, ax
     mov es, ax
 
-    jmp KERNEL_LOAD_SEGMENT:KERNEL_LOAD_OFFSET
+    jmp STAGE2_LOAD_SEGMENT:STAGE2_LOAD_OFFSET
 
     jmp wait_key_and_reboot             ; should never happen
 
@@ -311,8 +311,8 @@ file_stage2_bin:        db 'STAGE2  BIN'
 stage2_cluster:         dw 0
 
 ; set Kernel values
-KERNEL_LOAD_SEGMENT equ 0x2000
-KERNEL_LOAD_OFFSET  equ 0x0000
+STAGE2_LOAD_SEGMENT equ 0x0000
+STAGE2_LOAD_OFFSET  equ 0x0500
 
 times 510-($-$$) db 0
 dw 0AA55h

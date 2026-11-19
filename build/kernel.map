@@ -1,0 +1,155 @@
+Archive member included to satisfy reference by file (symbol)
+
+/home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+                              /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj (__udivdi3)
+/home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+                              /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj (__umoddi3)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/asm/x86.obj
+LOAD /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+LOAD /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+LOAD /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+LOAD /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a
+                0x00100000                phys = 0x100000
+                0x00100000                . = phys
+
+.entry          0x00100000       0x48
+                0x00100000                __entry_start = .
+ *(.entry)
+ .entry         0x00100000       0x48 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+                0x00100000                start
+
+.text           0x00100050      0xbb9
+                0x00100050                __text_start = .
+ *(.text)
+ .text          0x00100050       0x14 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/asm/x86.obj
+                0x00100050                x86_outb
+                0x0010005b                x86_inb
+ .text          0x00100064        0x0 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .text          0x00100064       0xf5 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+                0x00100064                memcpy
+                0x001000b6                memset
+                0x001000f9                memcmp
+ .text          0x00100159      0x85a /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+                0x00100159                putchr
+                0x00100187                putcolor
+                0x001001b8                getchr
+                0x001001d9                getcolor
+                0x001001fd                setcursor
+                0x0010026e                clrscr
+                0x001002fc                scrollback
+                0x001003ec                putc
+                0x001004f6                puts
+                0x00100524                printf_unsigned
+                0x001005e2                printf_signed
+                0x0010063f                printf
+                0x0010091a                print_buffer
+ *fill*         0x001009b3        0xd 
+ .text          0x001009c0      0x126 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+                0x001009c0                __udivdi3
+ *fill*         0x00100ae6        0xa 
+ .text          0x00100af0      0x119 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+                0x00100af0                __umoddi3
+
+.data           0x00100c0c        0x4
+                0x00100c0c                __data_start = .
+ *(.data)
+ .data          0x00100c0c        0x0 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .data          0x00100c0c        0x0 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .data          0x00100c0c        0x4 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+                0x00100c0c                g_ScreenBuffer
+ .data          0x00100c10        0x0 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .data          0x00100c10        0x0 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.rodata         0x00100c10      0x1a2
+                0x00100c10                __rodata_start = .
+ *(.rodata)
+ .rodata        0x00100c10       0x1c /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .rodata        0x00100c2c      0x186 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+                0x00100c2c                SCREEN_WIDTH
+                0x00100c30                SCREEN_HEIGHT
+                0x00100c34                DEFAULT_COLOR
+                0x00100c38                g_HexChars
+
+.eh_frame       0x00100db4      0x378
+ .eh_frame      0x00100db4       0x34 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .eh_frame      0x00100de8       0x78 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .eh_frame      0x00100e60      0x1c0 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+ .eh_frame      0x00101020       0x9c /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .eh_frame      0x001010bc       0x70 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.bss            0x0010112c        0x8
+                0x0010112c                __bss_start = .
+ *(.bss)
+ .bss           0x0010112c        0x0 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .bss           0x0010112c        0x0 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .bss           0x0010112c        0x8 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+                0x0010112c                g_ScreenX
+                0x00101130                g_ScreenY
+ .bss           0x00101134        0x0 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .bss           0x00101134        0x0 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+                0x00101134                __end = .
+OUTPUT(/home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel.bin binary)
+
+.debug_info     0x00000000     0x1c4d
+ .debug_info    0x00000000       0xc3 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .debug_info    0x000000c3      0x1ec /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .debug_info    0x000002af      0x536 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+ .debug_info    0x000007e5      0xa2b /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .debug_info    0x00001210      0xa3d /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.debug_abbrev   0x00000000      0x713
+ .debug_abbrev  0x00000000       0x7c /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .debug_abbrev  0x0000007c       0xce /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .debug_abbrev  0x0000014a      0x1b2 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+ .debug_abbrev  0x000002fc      0x203 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .debug_abbrev  0x000004ff      0x214 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.debug_aranges  0x00000000       0xa0
+ .debug_aranges
+                0x00000000       0x20 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .debug_aranges
+                0x00000020       0x20 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .debug_aranges
+                0x00000040       0x20 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+ .debug_aranges
+                0x00000060       0x20 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .debug_aranges
+                0x00000080       0x20 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.debug_ranges   0x00000000       0x78
+ .debug_ranges  0x00000000       0x10 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .debug_ranges  0x00000010       0x48 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .debug_ranges  0x00000058       0x20 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.debug_line     0x00000000      0x5e1
+ .debug_line    0x00000000       0x8d /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .debug_line    0x0000008d       0xc7 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .debug_line    0x00000154      0x20a /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+ .debug_line    0x0000035e      0x144 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .debug_line    0x000004a2      0x13f /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.debug_str      0x00000000     0x1a97
+ .debug_str     0x00000000      0x146 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .debug_str     0x00000146      0x16b /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .debug_str     0x000002b1      0x28a /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+ .debug_str     0x0000053b      0xaae /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .debug_str     0x00000fe9      0xaae /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.comment        0x00000000       0x5a
+ .comment       0x00000000       0x12 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/main.obj
+ .comment       0x00000012       0x12 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/memory.obj
+ .comment       0x00000024       0x12 /home/violet/Documents/GitHubProjects/BuildingAnOS/build/kernel/c/stdio.obj
+ .comment       0x00000036       0x12 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .comment       0x00000048       0x12 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
+
+.debug_loc      0x00000000      0xa31
+ .debug_loc     0x00000000      0x581 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_udivdi3.o)
+ .debug_loc     0x00000581      0x4b0 /home/violet/opt/i686-elf-tools/bin/../lib/gcc/i686-elf/7.1.0/libgcc.a(_umoddi3.o)
